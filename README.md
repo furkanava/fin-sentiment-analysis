@@ -20,8 +20,11 @@ Bu proje, finansal haber metinlerinde duyarlılık (sentiment) analizi gerçekle
 
 ## 📋 Veri Kümesi
 
-Projede kullanılan veri kümesi, finansal haberlerden oluşan `all-data.csv` dosyasıdır. Veri kümesi:
+Projede kullanılan veri kümesi, [Kaggle üzerindeki "Sentiment Analysis for Financial News"](https://www.kaggle.com/datasets/ankurzing/sentiment-analysis-for-financial-news/data) veri setidir. Bu veri seti Ankur Sinha tarafından oluşturulmuş ve 5 yıl önce güncellenmiştir.
 
+Veri seti aşağıdaki özellikleri içermektedir:
+- **Dosya Formatı**: CSV (`all-data.csv`)
+- **Sütunlar**: "Sentiment" ve "News Headline" olmak üzere iki sütun içerir
 - **Toplam Örnek Sayısı**: 4,846 finansal haber metni
 - **Sınıf Dağılımı**:
   - Pozitif: %58.2
@@ -94,8 +97,8 @@ Proje, katmanlı bir mimari ile yapılandırılmıştır:
 
 ```bash
 # Depoyu klonlayın
-git clone https://github.com/kullanici/finansal-duyarlilik-analizi.git
-cd finansal-duyarlilik-analizi
+git clone https://github.com/furkanava/fin-sentiment-analysis.git
+cd fin-sentiment-analysis
 
 # Bağımlılıkları yükleyin
 pip install -r requirements.txt
@@ -162,8 +165,11 @@ This project aims to create a comprehensive NLP (Natural Language Processing) sy
 
 ## 📋 Dataset
 
-The dataset used in this project is the `all-data.csv` file consisting of financial news. The dataset includes:
+The dataset used in this project is the [Kaggle's "Sentiment Analysis for Financial News"](https://www.kaggle.com/datasets/ankurzing/sentiment-analysis-for-financial-news/data) dataset. This dataset was created by Ankur Sinha and was updated 5 years ago.
 
+The dataset includes the following characteristics:
+- **File Format**: CSV (`all-data.csv`)
+- **Columns**: Contains two columns - "Sentiment" and "News Headline"
 - **Total Samples**: 4,846 financial news texts
 - **Class Distribution**:
   - Positive: 58.2%
@@ -236,8 +242,8 @@ The project is structured with a layered architecture:
 
 ```bash
 # Clone the repository
-git clone https://github.com/username/financial-sentiment-analysis.git
-cd financial-sentiment-analysis
+git clone https://github.com/furkanava/fin-sentiment-analysis.git
+cd fin-sentiment-analysis
 
 # Install dependencies
 pip install -r requirements.txt
