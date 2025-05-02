@@ -1,9 +1,6 @@
 # Finansal Metin Duyarlılık Analizi (Sentiment Analysis)
 
-<div align="right">
-   <a href="#finansal-metin-duyarlılık-analizi-sentiment-analysis">🇹🇷 Türkçe</a> |
-   <a href="#financial-text-sentiment-analysis">🇬🇧 English</a>
-</div>
+[![Türkçe](https://img.shields.io/badge/dil-türkçe-red.svg)](#finansal-metin-duyarlılık-analizi-sentiment-analysis) [![English](https://img.shields.io/badge/language-english-blue.svg)](#financial-text-sentiment-analysis)
 
 <p align="center">
    <img src="images/sentiment_header.png" alt="Finansal Duyarlılık Analizi" width="800"/>
@@ -145,10 +142,7 @@ print(f"Duyarlılık: {sentiment}")  # Çıktı: Duyarlılık: Pozitif
 
 # Financial Text Sentiment Analysis
 
-<div align="right">
-   <a href="#finansal-metin-duyarlılık-analizi-sentiment-analysis">🇹🇷 Turkish</a> |
-   <a href="#financial-text-sentiment-analysis">🇬🇧 English</a>
-</div>
+[![Türkçe](https://img.shields.io/badge/dil-türkçe-red.svg)](#finansal-metin-duyarlılık-analizi-sentiment-analysis) [![English](https://img.shields.io/badge/language-english-blue.svg)](#financial-text-sentiment-analysis)
 
 <p align="center">
    <img src="images/sentiment_header.png" alt="Financial Sentiment Analysis" width="800"/>
