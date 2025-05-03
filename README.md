@@ -27,9 +27,9 @@ Veri seti aşağıdaki özellikleri içermektedir:
 - **Sütunlar**: "Sentiment" ve "News Headline" olmak üzere iki sütun içerir
 - **Toplam Örnek Sayısı**: 4,846 finansal haber metni
 - **Sınıf Dağılımı**:
-  - Pozitif: %58.2
-  - Nötr: %22.5
-  - Negatif: %19.3
+  - Nötr: %59.0
+  - Pozitif: %28.1
+  - Negatif: %12.5
 - **Örnek İçerik**: Şirket kazançları, piyasa değişimleri, finansal haberler ve duyurular
 
 <p align="center">
@@ -172,9 +172,9 @@ The dataset includes the following characteristics:
 - **Columns**: Contains two columns - "Sentiment" and "News Headline"
 - **Total Samples**: 4,846 financial news texts
 - **Class Distribution**:
-  - Positive: 58.2%
-  - Neutral: 22.5%
-  - Negative: 19.3%
+  - Neutral: %59.0%
+  - Positive: 28.1%
+  - Negative: 12.5%
 - **Sample Content**: Company earnings, market changes, financial news, and announcements
 
 <p align="center">
