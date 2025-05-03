@@ -30,11 +30,7 @@ Veri seti aşağıdaki özellikleri içermektedir:
   - Nötr: %59.4
   - Pozitif: %28.1
   - Negatif: %12.5
-- **Örnek İçerik**: Şirket kazançları, piyasa değişimleri, finansal haberler ve duyurular
 
-<p align="center">
-   <img src="images/sentiment_distribution.png" alt="Duyarlılık Dağılımı" width="600"/>
-</p>
 
 ## 💻 Proje Mimarisi
 
