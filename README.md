@@ -171,11 +171,7 @@ The dataset includes the following characteristics:
   - Neutral:  59.4%
   - Positive: 28.1%
   - Negative: 12.5%
-- **Sample Content**: Company earnings, market changes, financial news, and announcements
 
-<p align="center">
-   <img src="images/sentiment_distribution.png" alt="Sentiment Distribution" width="600"/>
-</p>
 
 ## 💻 Project Architecture
 
