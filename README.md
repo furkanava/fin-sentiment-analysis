@@ -96,6 +96,51 @@ TF-IDF Vektörizasyon          Ham Metin (FinBERT için)
          (Accuracy, Precision, Recall, F1)
 ```
 
+## Model Performans Karşılaştırması
+
+| Model | Accuracy | Precision | Recall | F1 Score |
+|-------|----------|-----------|--------|----------|
+| Temel RandomForest | 0.7464 | 0.7682 | 0.7464 | 0.7170 |
+| SMOTE + RandomForest | 0.7660 | 0.7756 | 0.7660 | 0.7472 |
+| **FinBERT** | **0.8856** | **0.8986** | **0.8856** | **0.8870** |
+
+<p align="center">
+   <img src="images/model_comparison.png" alt="Model Karşılaştırması" width="700"/>
+</p>
+
+### Sınıf Bazında Detaylı Sonuçlar (FinBERT)
+
+| Sınıf | Precision | Recall | F1 Score | Destek |
+|-------|-----------|--------|----------|--------|
+| Negatif | 0.75 | 0.99 | 0.85 | 121 |
+| Nötr | 0.96 | 0.85 | 0.90 | 576 |
+| Pozitif | 0.83 | 0.92 | 0.87 | 273 |
+
+### Karışıklık Matrisleri
+
+<p align="center">
+   <img src="images/temel_randomforest_confusion_matrix.png" alt="Temel RF Karışıklık Matrisi" width="45%"/>
+   <img src="images/smote_randomforest_confusion_matrix.png" alt="SMOTE RF Karışıklık Matrisi" width="45%"/>
+</p>
+<p align="center">
+   <img src="images/finbert_confusion_matrix.png" alt="FinBERT Karışıklık Matrisi" width="45%"/>
+</p>
+
+### Çapraz Doğrulama (5-fold, SMOTE Pipeline)
+
+| Metrik | Ortalama | Standart Sapma |
+|--------|----------|----------------|
+| Accuracy | %68.30 | ±%1.98 |
+| F1 Score | %64.23 | ±%3.38 |
+
+### Örnek Tahminler
+
+| Metin | RandomForest+SMOTE | FinBERT |
+|-------|--------------------|---------|
+| "Company profits surge by 15% this quarter" | Nötr | **Pozitif** |
+| "Stock market crashes amid economic uncertainty" | Nötr | **Negatif** |
+| "The company announced stable earnings for the fiscal year" | Nötr | **Pozitif** |
+
 ## Önemli Teknik Detaylar
 
 - **FinBERT Label Mapping:** ProsusAI/finbert `0=positive, 1=negative, 2=neutral` çıktısı verir. Projede `0=negative, 1=neutral, 2=positive` kullanıldığı için dönüşüm uygulanır.
@@ -161,6 +206,51 @@ When executed, the script will:
 7. Show sample predictions on example financial texts
 
 > **Note:** FinBERT model needs to be downloaded on first run (~400 MB). If no internet connection is available, the FinBERT step is skipped and only RandomForest models are evaluated.
+
+## Model Performance Comparison
+
+| Model | Accuracy | Precision | Recall | F1 Score |
+|-------|----------|-----------|--------|----------|
+| Base RandomForest | 0.7464 | 0.7682 | 0.7464 | 0.7170 |
+| SMOTE + RandomForest | 0.7660 | 0.7756 | 0.7660 | 0.7472 |
+| **FinBERT** | **0.8856** | **0.8986** | **0.8856** | **0.8870** |
+
+<p align="center">
+   <img src="images/model_comparison.png" alt="Model Comparison" width="700"/>
+</p>
+
+### Per-Class Results (FinBERT)
+
+| Class | Precision | Recall | F1 Score | Support |
+|-------|-----------|--------|----------|---------|
+| Negative | 0.75 | 0.99 | 0.85 | 121 |
+| Neutral | 0.96 | 0.85 | 0.90 | 576 |
+| Positive | 0.83 | 0.92 | 0.87 | 273 |
+
+### Confusion Matrices
+
+<p align="center">
+   <img src="images/temel_randomforest_confusion_matrix.png" alt="Base RF Confusion Matrix" width="45%"/>
+   <img src="images/smote_randomforest_confusion_matrix.png" alt="SMOTE RF Confusion Matrix" width="45%"/>
+</p>
+<p align="center">
+   <img src="images/finbert_confusion_matrix.png" alt="FinBERT Confusion Matrix" width="45%"/>
+</p>
+
+### Cross-Validation (5-fold, SMOTE Pipeline)
+
+| Metric | Mean | Std Dev |
+|--------|------|---------|
+| Accuracy | 68.30% | ±1.98% |
+| F1 Score | 64.23% | ±3.38% |
+
+### Sample Predictions
+
+| Text | RandomForest+SMOTE | FinBERT |
+|------|--------------------|---------|
+| "Company profits surge by 15% this quarter" | Neutral | **Positive** |
+| "Stock market crashes amid economic uncertainty" | Neutral | **Negative** |
+| "The company announced stable earnings for the fiscal year" | Neutral | **Positive** |
 
 ## Key Technical Details
 
