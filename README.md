@@ -2,94 +2,52 @@
 
 [![Türkçe](https://img.shields.io/badge/dil-türkçe-red.svg)](#finansal-metin-duyarlılık-analizi-sentiment-analysis) [![English](https://img.shields.io/badge/language-english-blue.svg)](#financial-text-sentiment-analysis)
 
-<p align="center">
-   <img src="images/sentiment_header.png" alt="Finansal Duyarlılık Analizi" width="800"/>
-</p>
+## Proje Hakkında
 
-## 📊 Proje Hakkında
+Bu proje, finansal haber metinlerinde duyarlılık (sentiment) analizi gerçekleştirerek metinlerin **pozitif**, **negatif** veya **nötr** olduğunu sınıflandıran bir NLP sistemidir. Üç farklı model yaklaşımını aynı test seti üzerinde karşılaştırır:
 
-Bu proje, finansal haber metinlerinde duyarlılık (sentiment) analizi gerçekleştirerek metinlerin pozitif, negatif veya nötr olduğunu sınıflandıran kapsamlı bir NLP (Doğal Dil İşleme) sistemi oluşturmayı amaçlamaktadır. Farklı modeller ve teknikler kullanarak finansal haberlerin duygusal tonunu analiz eden sistem, yatırım kararlarına yardımcı olabilecek içgörüler sunmaktadır.
+1. **Temel RandomForest** — TF-IDF özellik çıkarımı + dengeli sınıf ağırlıkları
+2. **SMOTE + RandomForest** — Sentetik azınlık örnekleme ile veri dengeleme
+3. **FinBERT** — Finansal metinlere özel ön eğitimli transformer modeli (ProsusAI/finbert)
 
-## 🌟 Temel Özellikler
+## Veri Kümesi
 
-- **Çoklu Model Karşılaştırması**: Temel RandomForest, SMOTE ile geliştirilmiş model ve FinBERT gibi özelleştirilmiş dil modellerinin karşılaştırması
-- **Metin Ön İşleme**: Finansal metinler için özel olarak tasarlanmış temizleme ve normalizasyon teknikleri
-- **Veri Dengeleme**: SMOTE (Synthetic Minority Over-sampling Technique) kullanarak veri dengesizliğini giderme
-- **Performans Değerlendirmesi**: Kapsamlı metrikler ve görselleştirmelerle model performansının analizi
-- **Etkili Görselleştirmeler**: Karmaşık duyarlılık dağılımlarını ve model performansını görselleştirme
+[Kaggle — Sentiment Analysis for Financial News](https://www.kaggle.com/datasets/ankurzing/sentiment-analysis-for-financial-news/data) veri seti kullanılmaktadır.
 
-## 📋 Veri Kümesi
+| Özellik | Değer |
+|---------|-------|
+| Format | CSV (`all-data.csv`) |
+| Sütunlar | Sentiment, Text |
+| Toplam Örnek | ~4,846 |
+| Nötr | %59.4 |
+| Pozitif | %28.1 |
+| Negatif | %12.5 |
 
-Projede kullanılan veri kümesi, [Kaggle üzerindeki "Sentiment Analysis for Financial News"](https://www.kaggle.com/datasets/ankurzing/sentiment-analysis-for-financial-news/data) veri setidir. Bu veri seti Ankur Sinha tarafından oluşturulmuş ve 5 yıl önce güncellenmiştir.
+## Proje Mimarisi
 
-Veri seti aşağıdaki özellikleri içermektedir:
-- **Dosya Formatı**: CSV (`all-data.csv`)
-- **Sütunlar**: "Sentiment" ve "News Headline" olmak üzere iki sütun içerir
-- **Toplam Örnek Sayısı**: 4,846 finansal haber metni
-- **Sınıf Dağılımı**:
-  - Nötr: %59.4
-  - Pozitif: %28.1
-  - Negatif: %12.5
+```
+fin-sentiment-analysis/
+├── main.py              # Tüm pipeline: veri yükleme → eğitim → değerlendirme
+├── all-data.csv         # Veri seti
+├── requirements.txt     # Bağımlılıklar
+├── images/              # Çalıştırıldığında oluşan grafikler
+│   ├── model_comparison.png
+│   ├── temel_randomforest_confusion_matrix.png
+│   ├── smote_randomforest_confusion_matrix.png
+│   └── finbert_confusion_matrix.png
+└── README.md
+```
 
+## Kullanılan Teknolojiler
 
-## 💻 Proje Mimarisi
+- **Python 3.11+**
+- pandas, numpy — Veri manipülasyonu
+- matplotlib, seaborn — Görselleştirme
+- scikit-learn — Geleneksel ML modelleri ve metrikler
+- imbalanced-learn — SMOTE veri dengeleme
+- transformers, torch — FinBERT dil modeli
 
-Proje, katmanlı bir mimari ile yapılandırılmıştır:
-
-1. **Veri İşleme Katmanı**: Ham verileri temizleme, normalizasyon ve özellik çıkarımı
-2. **Model Katmanı**: 
-   - Temel RandomForest Sınıflandırıcı
-   - SMOTE ile Geliştirilmiş RandomForest
-   - FinBERT Dil Modeli
-3. **Değerlendirme Katmanı**: 
-   - Performans metrikleri (doğruluk, kesinlik, duyarlılık, F1)
-   - Karışıklık matrisleri
-   - Çapraz doğrulama
-
-## ⚙️ Kullanılan Teknolojiler
-
-- **Dil**: Python 3.11+
-- **Temel Kütüphaneler**: 
-  - pandas, numpy: Veri manipülasyonu
-  - matplotlib, seaborn: Görselleştirme
-  - scikit-learn: Geleneksel ML modelleri
-  - transformers: Dil modelleri (BERT, FinBERT)
-  - torch: Derin öğrenme altyapısı
-  - imblearn: Veri dengeleme
-
-## 📈 Model Performans Karşılaştırması
-
-| Model | Doğruluk | Kesinlik | Duyarlılık | F1 Skoru |
-|-------|----------|----------|------------|----------|
-| Temel RandomForest | 0.7464 | 0.7682 | 0.7464 | 0.7170 |
-| SMOTE ile Geliştirilmiş | 0.7639 | 0.7727 | 0.7639 | 0.7446 |
-| FinBERT Modeli* | 0.9128 | 0.9075 | 0.9133 | 0.9092 |
-
-*FinBERT modeli sonuçları literatürden alınmıştır, gerçek performans veri setine göre değişiklik gösterebilir.
-
-<p align="center">
-   <img src="images/model_comparison.png" alt="Model Karşılaştırması" width="700"/>
-</p>
-
-## 🔄 Çalışma Akışı
-
-1. **Veri Yükleme ve İnceleme**: Ham veriler yüklenir ve keşifsel veri analizi yapılır
-2. **Veri Ön İşleme**: Metinler temizlenir, normalizasyon ve özellik çıkarımı gerçekleştirilir
-3. **Model Eğitimi**: 
-   - Temel RandomForest modeli dengeli sınıf ağırlıkları ile eğitilir
-   - SMOTE tekniği ile veri dengeleme ve model iyileştirme yapılır
-4. **Model Değerlendirmesi**: Farklı metriklerle modeller karşılaştırılır ve en iyi model seçilir
-5. **Örnek Tahminler**: Gerçek dünya finansal metin örnekleri üzerinde modeller test edilir
-
-## 📊 SMOTE Modeli Karışıklık Matrisi
-
-<p align="center">
-   <img src="images/smote_confusion_matrix.png" alt="SMOTE Karışıklık Matrisi" width="600"/>
-</p>
-
-## 🚀 Nasıl Kullanılır
-
-### Kurulum
+## Kurulum ve Çalıştırma
 
 ```bash
 # Depoyu klonlayın
@@ -98,44 +56,64 @@ cd fin-sentiment-analysis
 
 # Bağımlılıkları yükleyin
 pip install -r requirements.txt
-```
 
-### Modeli Çalıştırma
-
-```python
-# Temel modeli çalıştırma
+# Çalıştırın
 python main.py
-
-# FinBERT modelini kullanma (isteğe bağlı)
-python main.py --model finbert
 ```
 
-### Örnek Kullanım
+Script çalıştırıldığında sırasıyla:
+1. Veri yüklenir ve ön işlemden geçirilir
+2. Temel RandomForest modeli eğitilip değerlendirilir
+3. SMOTE ile dengelenmiş model eğitilip değerlendirilir
+4. FinBERT modeli indirilir ve test seti üzerinde değerlendirilir
+5. Tüm modellerin karşılaştırma grafikleri `images/` klasörüne kaydedilir
+6. 5-fold çapraz doğrulama (SMOTE pipeline) çalıştırılır
+7. Örnek finansal metinler üzerinde tahminler gösterilir
 
-```python
-from sentiment_analyzer import SentimentAnalyzer
+> **Not:** FinBERT modelinin ilk çalıştırmada indirilmesi gerekir (~400 MB). İnternet bağlantısı yoksa FinBERT adımı atlanır ve sadece RandomForest modelleri değerlendirilir.
 
-# Analizör oluştur
-analyzer = SentimentAnalyzer(model_type="smote")
+## Çalışma Akışı
 
-# Bir metin analiz et
-sentiment = analyzer.predict("Company profits surge by 15% this quarter")
-print(f"Duyarlılık: {sentiment}")  # Çıktı: Duyarlılık: Pozitif
+```
+CSV Verisi
+    │
+    ▼
+Metin Temizleme (lowercase, özel karakter temizliği)
+    │
+    ▼
+Etiket Dönüşümü (positive→2, neutral→1, negative→0)
+    │
+    ├──────────────────────────────┐
+    ▼                              ▼
+TF-IDF Vektörizasyon          Ham Metin (FinBERT için)
+    │                              │
+    ├─► Temel RandomForest         ├─► FinBERT Tokenizer
+    ├─► SMOTE + RandomForest       └─► FinBERT Model
+    │                              │
+    └──────────────┬───────────────┘
+                   ▼
+         Değerlendirme & Karşılaştırma
+         (Accuracy, Precision, Recall, F1)
 ```
 
-## 🔍 Gelecek Çalışmalar
+## Önemli Teknik Detaylar
 
-- **Daha Büyük Veri Kümesi**: Daha geniş ve çeşitli finansal haberlerle eğitim
-- **İleri Dil Modelleri**: GPT ve benzeri büyük dil modellerinin entegrasyonu
-- **Çok Dilli Destek**: Farklı dillerde finansal metin analizi
-- **Zaman Serisi Analizi**: Zaman içinde duyarlılık değişimlerini izleme
-- **Model Yorumlanabilirliği**: SHAP değerleri ile modellerin kararlarını açıklama
+- **FinBERT Label Mapping:** ProsusAI/finbert `0=positive, 1=negative, 2=neutral` çıktısı verir. Projede `0=negative, 1=neutral, 2=positive` kullanıldığı için dönüşüm uygulanır.
+- **SMOTE Cross-Validation:** Çapraz doğrulama `imblearn.pipeline.Pipeline` kullanarak her fold içinde SMOTE uygular — data leakage önlenir.
+- **TF-IDF:** Unigram + Bigram, max 5000 özellik.
 
-## 📚 Kaynaklar ve Referanslar
+## Gelecek Çalışmalar
+
+- Daha büyük ve çeşitli finansal haber veri setleriyle eğitim
+- SHAP değerleri ile model yorumlanabilirliği
+- Çok dilli finansal metin desteği
+- Zaman serisi üzerinde duyarlılık değişimi analizi
+
+## Kaynaklar
 
 1. Liu, Y., Wang, J., Long, L., Li, X., Ma, R., Wu, Y., & Chen, X. (2025). "A Multi-Level Sentiment Analysis Framework for Financial Texts". arXiv:2504.02429
-2. Mun, Y., & Kim, N. (2025). "Leveraging Large Language Models for Sentiment Analysis and Investment Strategy Development in Financial Markets". Journal of Theoretical and Applied Electronic Commerce Research, 20(2), 77.
-3. Bhargava, N., Radaideh, M. I., Kwon, O. H., Verma, A., & Radaideh, M. I. (2025). "On the Impact of Language Nuances on Sentiment Analysis with Large Language Models: Paraphrasing, Sarcasm, and Emojis". arXiv:2504.05603
+2. Mun, Y., & Kim, N. (2025). "Leveraging Large Language Models for Sentiment Analysis and Investment Strategy Development in Financial Markets". JTAECR, 20(2), 77.
+3. Bhargava, N., Radaideh, M. I., et al. (2025). "On the Impact of Language Nuances on Sentiment Analysis with LLMs". arXiv:2504.05603
 
 ---
 
@@ -143,137 +121,62 @@ print(f"Duyarlılık: {sentiment}")  # Çıktı: Duyarlılık: Pozitif
 
 [![Türkçe](https://img.shields.io/badge/dil-türkçe-red.svg)](#finansal-metin-duyarlılık-analizi-sentiment-analysis) [![English](https://img.shields.io/badge/language-english-blue.svg)](#financial-text-sentiment-analysis)
 
-<p align="center">
-   <img src="images/sentiment_header.png" alt="Financial Sentiment Analysis" width="800"/>
-</p>
+## About
 
-## 📊 About The Project
+This project performs sentiment analysis on financial news headlines, classifying them as **positive**, **negative**, or **neutral**. It compares three model approaches on the same test set:
 
-This project aims to create a comprehensive NLP (Natural Language Processing) system that performs sentiment analysis on financial news texts, classifying them as positive, negative, or neutral. By using different models and techniques to analyze the emotional tone of financial news, the system provides insights that can aid investment decisions.
+1. **Base RandomForest** — TF-IDF features + balanced class weights
+2. **SMOTE + RandomForest** — Synthetic minority oversampling for class balance
+3. **FinBERT** — Pre-trained transformer model specialized for financial text (ProsusAI/finbert)
 
-## 🌟 Key Features
+## Dataset
 
-- **Multiple Model Comparison**: Comparison of base RandomForest, SMOTE-enhanced model, and specialized language models like FinBERT
-- **Text Preprocessing**: Cleaning and normalization techniques specifically designed for financial texts
-- **Data Balancing**: Addressing data imbalance using SMOTE (Synthetic Minority Over-sampling Technique)
-- **Performance Evaluation**: Analysis of model performance with comprehensive metrics and visualizations
-- **Effective Visualizations**: Visualizing complex sentiment distributions and model performance
+Uses the [Kaggle — Sentiment Analysis for Financial News](https://www.kaggle.com/datasets/ankurzing/sentiment-analysis-for-financial-news/data) dataset.
 
-## 📋 Dataset
+| Property | Value |
+|----------|-------|
+| Format | CSV (`all-data.csv`) |
+| Columns | Sentiment, Text |
+| Total Samples | ~4,846 |
+| Neutral | 59.4% |
+| Positive | 28.1% |
+| Negative | 12.5% |
 
-The dataset used in this project is the [Kaggle's "Sentiment Analysis for Financial News"](https://www.kaggle.com/datasets/ankurzing/sentiment-analysis-for-financial-news/data) dataset. This dataset was created by Ankur Sinha and was updated 5 years ago.
-
-The dataset includes the following characteristics:
-- **File Format**: CSV (`all-data.csv`)
-- **Columns**: Contains two columns - "Sentiment" and "News Headline"
-- **Total Samples**: 4,846 financial news texts
-- **Class Distribution**:
-  - Neutral:  59.4%
-  - Positive: 28.1%
-  - Negative: 12.5%
-
-
-## 💻 Project Architecture
-
-The project is structured with a layered architecture:
-
-1. **Data Processing Layer**: Cleaning raw data, normalization, and feature extraction
-2. **Model Layer**: 
-   - Base RandomForest Classifier
-   - SMOTE-Enhanced RandomForest
-   - FinBERT Language Model
-3. **Evaluation Layer**: 
-   - Performance metrics (accuracy, precision, recall, F1)
-   - Confusion matrices
-   - Cross-validation
-
-## ⚙️ Technologies Used
-
-- **Language**: Python 3.11+
-- **Core Libraries**: 
-  - pandas, numpy: Data manipulation
-  - matplotlib, seaborn: Visualization
-  - scikit-learn: Traditional ML models
-  - transformers: Language models (BERT, FinBERT)
-  - torch: Deep learning infrastructure
-  - imblearn: Data balancing
-
-## 📈 Model Performance Comparison
-
-| Model | Accuracy | Precision | Recall | F1 Score |
-|-------|----------|-----------|--------|----------|
-| Base RandomForest | 0.7464 | 0.7682 | 0.7464 | 0.7170 |
-| SMOTE-Enhanced | 0.7639 | 0.7727 | 0.7639 | 0.7446 |
-| FinBERT Model* | 0.9128 | 0.9075 | 0.9133 | 0.9092 |
-
-*FinBERT model results are taken from literature, actual performance may vary depending on the dataset.
-
-<p align="center">
-   <img src="images/model_comparison.png" alt="Model Comparison" width="700"/>
-</p>
-
-## 🔄 Workflow
-
-1. **Data Loading and Exploration**: Raw data is loaded and exploratory data analysis is performed
-2. **Data Preprocessing**: Texts are cleaned, normalization and feature extraction are carried out
-3. **Model Training**: 
-   - Base RandomForest model is trained with balanced class weights
-   - Data balancing and model improvement with SMOTE technique
-4. **Model Evaluation**: Models are compared with different metrics and the best model is selected
-5. **Sample Predictions**: Models are tested on real-world financial text examples
-
-## 📊 SMOTE Model Confusion Matrix
-
-<p align="center">
-   <img src="images/smote_confusion_matrix.png" alt="SMOTE Confusion Matrix" width="600"/>
-</p>
-
-## 🚀 How to Use
-
-### Installation
+## Installation & Usage
 
 ```bash
-# Clone the repository
 git clone https://github.com/furkanava/fin-sentiment-analysis.git
 cd fin-sentiment-analysis
-
-# Install dependencies
 pip install -r requirements.txt
-```
-
-### Running the Model
-
-```python
-# Run the base model
 python main.py
-
-# Use FinBERT model (optional)
-python main.py --model finbert
 ```
 
-### Example Usage
+When executed, the script will:
+1. Load and preprocess the data
+2. Train and evaluate a base RandomForest model
+3. Train and evaluate a SMOTE-balanced RandomForest model
+4. Download and evaluate the FinBERT model on the test set
+5. Save comparison charts to `images/`
+6. Run 5-fold cross-validation with a proper SMOTE pipeline
+7. Show sample predictions on example financial texts
 
-```python
-from sentiment_analyzer import SentimentAnalyzer
+> **Note:** FinBERT model needs to be downloaded on first run (~400 MB). If no internet connection is available, the FinBERT step is skipped and only RandomForest models are evaluated.
 
-# Create analyzer
-analyzer = SentimentAnalyzer(model_type="smote")
+## Key Technical Details
 
-# Analyze a text
-sentiment = analyzer.predict("Company profits surge by 15% this quarter")
-print(f"Sentiment: {sentiment}")  # Output: Sentiment: Positive
-```
+- **FinBERT Label Mapping:** ProsusAI/finbert outputs `0=positive, 1=negative, 2=neutral`. The project uses `0=negative, 1=neutral, 2=positive`, so proper label conversion is applied.
+- **SMOTE Cross-Validation:** Uses `imblearn.pipeline.Pipeline` to apply SMOTE within each fold, preventing data leakage.
+- **TF-IDF:** Unigram + Bigram features, max 5,000 features.
 
-## 🔍 Future Work
+## Future Work
 
-- **Larger Dataset**: Training with broader and more diverse financial news
-- **Advanced Language Models**: Integration of GPT and similar large language models
-- **Multilingual Support**: Financial text analysis in different languages
-- **Time Series Analysis**: Tracking sentiment changes over time
-- **Model Interpretability**: Explaining model decisions with SHAP values
+- Training with larger and more diverse financial news datasets
+- Model interpretability with SHAP values
+- Multilingual financial text support
+- Sentiment trend analysis over time series
 
-## 📚 Resources and References
+## References
 
 1. Liu, Y., Wang, J., Long, L., Li, X., Ma, R., Wu, Y., & Chen, X. (2025). "A Multi-Level Sentiment Analysis Framework for Financial Texts". arXiv:2504.02429
-2. Mun, Y., & Kim, N. (2025). "Leveraging Large Language Models for Sentiment Analysis and Investment Strategy Development in Financial Markets". Journal of Theoretical and Applied Electronic Commerce Research, 20(2), 77.
-3. Bhargava, N., Radaideh, M. I., Kwon, O. H., Verma, A., & Radaideh, M. I. (2025). "On the Impact of Language Nuances on Sentiment Analysis with Large Language Models: Paraphrasing, Sarcasm, and Emojis". arXiv:2504.05603 
+2. Mun, Y., & Kim, N. (2025). "Leveraging Large Language Models for Sentiment Analysis and Investment Strategy Development in Financial Markets". JTAECR, 20(2), 77.
+3. Bhargava, N., Radaideh, M. I., et al. (2025). "On the Impact of Language Nuances on Sentiment Analysis with LLMs". arXiv:2504.05603
